@@ -11,9 +11,9 @@ horz NUM  5
 vert	NUM  5
 	     RECORDEND
 
-windowDef INIT "WINDOW=Win1, TITLE=Main Menu, SIZE=750:450"
-panelDef	INIT	"PANEL=Pan1,SIZE=750:450":
-			",H=017,V=018,FONT=(12),CTEXT=Main Menu:703,FONT=(9)":
+windowDef INIT "WINDOW=W1, TITLE=Main Menu, SIZE=750:450"
+panelDef	INIT	"PANEL=P1,SIZE=750:450":
+			",H=017,V=018,FONT=(12),CTEXT=Lone Wolf and Cub:703,FONT=(9)":
 			",H=416,V=388,PUSHBUTTON=99:Exit:80:24":
 			",H=248,V=388,PUSHBUTTON=98:Player Editor:80:24":
 			",H=080,V=388,PUSHBUTTON=97:Tile Editor:80:24"

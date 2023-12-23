@@ -1,5 +1,5 @@
 
-	INC PLAYER_INFO
+	INC PlayerInfo
 
 playerInfoFile IFILE KEY=5,FIX=272,UNCOMP
 playerInfoKey 	DIM 5
@@ -17,8 +17,8 @@ vert		NUM  5
 data	  	CHAR 40
 	     RECORDEND
 
-windowDef INIT "WINDOW=Win1, TITLE=Player Editor, SIZE=380:650, FIXSIZE, STATUSBAR"
-panelDef	INIT	"PANEL=Pan1,SIZE=380:650":
+windowDef INIT "WINDOW=W1, TITLE=Player Editor, SIZE=380:650, FIXSIZE, STATUSBAR"
+panelDef	INIT	"PANEL=P1,SIZE=380:650":
 			",H=000,V=030,FONT=(BOLD,ITALIC,16),CTEXT=Player Editor:380":
 			",H=000,V=060,FONT=(PLAIN,10),CTEXT=Ver. 6.46:380":
 			",H=116,V=103,FONT=(PLAIN,13),RTEXT=Player ID":
@@ -112,12 +112,12 @@ LookupPlayer
 	IF OVER
 		CALL okdialog WITH "Record not found - Create new record?","Create","Cancel"
 		IF OVER
-
+			
 		ELSE
 			RETURN
 		ENDIF
 	ELSE
-		INC PLAYER_INFO_READ
+		INC PlayerInfoRead
 	ENDIF
 
 	CHANGE windowRes,"TEXT200";entityId
@@ -155,10 +155,10 @@ WritePlayer
 	READ playerInfoFile,playerInfoKey;;
 	IF OVER
 		CALL msgdialog WITH "Info Written","Continue"
-		INC PLAYER_INFO_WRITE
+		INC PlayerInfoWrite
 	ELSE
 		CALL msgdialog WITH "Info Updated","Continue"
-		INC PLAYER_INFO_UPDATE
+		INC PlayerInfoUpdate
 	ENDIF
 
 	RETURN
@@ -169,7 +169,7 @@ FileError
 	PREP playerInfoFile,"playerInfoFile"
 	MOVE "00000",playerInfoKey,entityId
 	CLEAR firstName,familyName,age,health,desc,hostility,clan
-	INC PLAYER_INFO_WRITE
+	INC PlayerInfoWrite
 
 	RETURN
 

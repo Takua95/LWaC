@@ -1,5 +1,5 @@
 
-	INC TILE_INFO
+	INC TileInfo
 
 tileInfoFile IFILE KEY=5,FIX=225,UNCOMP
 tileInfoKey  DIM 5
@@ -17,8 +17,8 @@ vert		NUM  5
 data	  	CHAR 40
 	     RECORDEND
 
-windowDef INIT "WINDOW=Win1, TITLE=Tile Editor, SIZE=380:650, FIXSIZE, STATUSBAR"
-panelDef	INIT	"PANEL=Pan1,SIZE=380:650":
+windowDef INIT "WINDOW=W1, TITLE=Tile Editor, SIZE=380:650, FIXSIZE, STATUSBAR"
+panelDef	INIT	"PANEL=P1,SIZE=380:650":
 			",H=000,V=030,FONT=(BOLD,ITALIC,16),CTEXT=Tile Editor:380":
 			",H=000,V=060,FONT=(PLAIN,10),CTEXT=Ver. 6.46:380":
 			",H=116,V=103,FONT=(PLAIN,13),RTEXT=Tile ID":
@@ -97,7 +97,7 @@ LookupTile
 			RETURN
 		ENDIF
 	ELSE
-		INC TILE_INFO_READ
+		INC TileInfoRead
 	ENDIF
 
 	CHANGE windowRes,"TEXT200";tileId
@@ -120,10 +120,10 @@ WriteTile
 	READ tileInfoFile,tileInfoKey;;
 	IF OVER
 		CALL msgdialog WITH "Info Written","Continue"
-		INC TILE_INFO_WRITE
+		INC TileInfoWrite
 	ELSE
 		CALL msgdialog WITH "Info Updated","Continue"
-		INC TILE_INFO_UPDATE
+		INC TileInfoUpdate
 	ENDIF
 
 	RETURN
@@ -134,7 +134,7 @@ FileError
 	PREP tileInfoFile,"tileInfoFile"
 	MOVE "00000",tileInfoKey,tileId
 	CLEAR tileName,desc
-	INC TILE_INFO_WRITE
+	INC TileInfoWrite
 
 	RETURN
 
