@@ -1,0 +1,2 @@
+
+	READ playerInfoFile,playerInfoKey;entityId,firstName,familyName,age,health,desc,hostility,clan

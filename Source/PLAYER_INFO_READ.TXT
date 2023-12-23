@@ -1,0 +1,2 @@
+
+	READKS playerInfoFile;entityId,firstName,familyName,age,health,desc,hostility,clan

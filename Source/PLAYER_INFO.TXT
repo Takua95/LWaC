@@ -1,0 +1,8 @@
+entityId     DIM      5     1  -   5   entitiy ID
+firstName    DIM     20     6  -  25   first name
+familyName   DIM     20    26  -  45   last name
+age          INT      3    46  -  48   age
+health       INT      2    49  -  50   health
+desc         DIM    200    51  - 250   description
+hostility    INT      2   251  - 252   hostility
+clan         DIM     20   253  - 272   clan

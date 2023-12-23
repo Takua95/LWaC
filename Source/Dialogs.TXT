@@ -1,0 +1,146 @@
+.Dialogs
+
+. variables common to next two dialogs
+
+dlgres	RESOURCE
+dlgmsgs	QUEUE
+
+dlgmsg	RECORD
+name      CHAR 8
+func      CHAR 4
+item      NUM  5
+horz 	NUM  5
+vert		NUM  5
+data	  	CHAR 40
+	     RECORDEND
+
+dlgdef	CHAR 300
+dlgtext	CHAR @
+btntext1 	CHAR @
+btntext2 	CHAR @
+
+. display a message dialog
+. dlgfield = [Prompt Text]
+. btntext1 = OK
+msgdialog LROUTINE dlgtext,btntext1
+
+	CLEAR dlgdef
+	PACK dlgdef,"DIALOG=D1, SIZE=200:100":
+			  ",H=01,V=20,CTEXT=",dlgtext,":200":
+			  ",H=60,V=60,PUSHBUTTON=99:",btntext1,":80:24"
+	RESET dlgdef
+
+	PREP dlgres,dlgdef
+	EMPTY windowQue
+ 	LINK dlgres,dlgmsgs
+	SHOW dlgres,windowDev
+
+	LOOP
+		WAIT dlgmsgs
+		GET dlgmsgs;dlgmsg
+		SWITCH dlgmsg.func
+			CASE "CLOS"
+				BREAK
+			CASE "PUSH"
+				SWITCH dlgmsg.item
+					CASE 99
+						BREAK
+				ENDSWITCH
+		ENDSWITCH
+	REPEAT
+
+	HIDE dlgres
+	UNLINK dlgres
+	CLOSE dlgres
+
+	RETURN
+	ENDROUTINE
+
+. display an OK and Cancel dialog
+. dlgfield = [Prompt Text]
+. btntext1 = OK
+. btntext2 = Cancel
+okdialog LROUTINE dlgtext,btntext1,btntext2
+
+	CLEAR dlgdef
+	PACK dlgdef,"DIALOG=D2, NOCLOSE, SIZE=200:10":
+			  ",H=001,V=20,CTEXT=",dlgtext,":200":
+			  ",H=024,V=60,PUSHBUTTON=98:",btntext1,":64:24":
+			  ",H=112,V=60, PUSHBUTTON=99:",btntext2,":64:24"
+	RESET dlgdef
+
+	PREP dlgres,dlgdef
+	EMPTY windowQue
+ 	LINK dlgres,dlgmsgs
+	SHOW dlgres,windowDev
+
+	LOOP
+		WAIT dlgmsgs
+		GET dlgmsgs;dlgmsg
+		SWITCH dlgmsg.func
+			CASE "CLOS"
+				BREAK
+			CASE "PUSH"
+				SWITCH dlgmsg.item
+					CASE 98
+						SETFLAG NOT OVER
+						BREAK
+					CASE 99
+						SETFLAG OVER
+						BREAK
+				ENDSWITCH
+		ENDSWITCH
+	REPEAT
+
+	HIDE dlgres
+	UNLINK dlgres
+	CLOSE dlgres
+
+	RETURN
+	ENDROUTINE
+
+. display a dialog the inputs a field
+. dlgfield = [Prompt Text]
+. dlgfield = [Capture Field]
+. btntext1 = OK
+. btntext2 = Cancel
+fielddialog LROUTINE dlgtext,dlgfield,btntext1,btntext2
+dlgfield	CHAR @
+	CLEAR dlgdef
+	PACK dlgdef,"DIALOG=D3, SIZE=300:100":
+			  ",H=010,V=20,TEXT=",dlgtext:
+			  ",H=150,V=20, EDIT=91::140":
+			  ",H=024,V=60,PUSHBUTTON=98:",btntext1,":64:24":
+			  ",H=112,V=60,PUSHBUTTON=99:",btntext2,":64:24"
+
+	RESET dlgdef
+	PREP dlgres, dlgdef
+	EMPTY windowQue
+ 	LINK dlgres,dlgmsgs
+	SHOW dlgres,windowDev
+
+	LOOP
+		WAIT dlgmsgs
+		GET dlgmsgs;dlgmsg
+		SWITCH dlgmsg.func
+			CASE "CLOS"
+				BREAK
+			CASE "PUSH"
+				SWITCH dlgmsg.item
+					CASE 98
+						QUERY dlgres,"STATUS91";dlgfield
+						SETFLAG NOT OVER
+						BREAK
+					CASE 99
+						SETFLAG OVER
+						BREAK
+				ENDSWITCH
+		ENDSWITCH
+	REPEAT
+
+	HIDE dlgres
+	UNLINK dlgres
+	CLOSE dlgres
+
+	RETURN
+	ENDROUTINE

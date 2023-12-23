@@ -1,0 +1,3 @@
+tileId       DIM      5     1  -   5   Tile ID
+tileName     DIM     20     6  -  25   Tile name
+desc         DIM    200    26  - 225   description

@@ -1,0 +1,2 @@
+
+	READKS tileInfoFile;tileId,tileName,desc
